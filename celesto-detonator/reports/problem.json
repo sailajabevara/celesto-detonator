@@ -1,0 +1,6 @@
+{
+  "who": "Python developers and security-conscious teams who pip install third-party packages (including AI agents that install packages on their own) and need to know what an install script does before it touches a real machine.",
+  "agent_work": "An LLM agent detonates a package archive in a fresh network-off Celesto microVM, records every file, process and network attempt made during install and import with in-guest audit hooks, inspects the guest, and writes a scored risk report.",
+  "proof_output": "reports/detonations/<run_id>.json: a risk report with verdict, score, findings and evidence.",
+  "idea_source": "idea_bank"
+}

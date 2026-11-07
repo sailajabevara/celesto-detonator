@@ -1,0 +1,19 @@
+{
+  "capabilities": [
+    {
+      "id": "safety_hooks",
+      "why": "Every command the LLM agent issues passes a host-side hook before the guest sees it; dangerous ones (curl exfil, rm -rf /, reading ~/.aws, env dumps) are blocked and still logged to logs/commands.jsonl. A system-prompt sentence cannot block a prompt-injected model, code can.",
+      "evidence_path": "src/detonator/hooks.py"
+    },
+    {
+      "id": "network_policy",
+      "why": "The guest boots with internet_settings mode=off so a malicious setup.py cannot exfiltrate the canary credentials even if the hook is bypassed. The package is shipped in as base64 over the control channel, so no network is needed at all. Local Linux+Firecracker only.",
+      "evidence_path": "src/detonator/sandbox.py"
+    },
+    {
+      "id": "snapshots",
+      "why": "A snapshot is taken at step 6, right before the only step that runs untrusted code. When step 7 of 10 crashes, rollback restores a known-clean disk and memory in one call instead of re-booting and re-uploading. Local runtime only; the code falls back to a fresh sandbox on cloud.",
+      "evidence_path": "src/detonator/pipeline.py"
+    }
+  ]
+}

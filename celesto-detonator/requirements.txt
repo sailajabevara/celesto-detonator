@@ -1,0 +1,5 @@
+-r requirements-api.txt
+celesto
+pytest
+httpx
+pyyaml
